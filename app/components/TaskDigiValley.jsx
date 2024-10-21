@@ -56,7 +56,7 @@ const TaskDigiValley = () => {
   }, [currentIndex]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-[300vh] bg-gray-200 overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-[200vh] bg-gray-200 overflow-hidden">
       {textList.map((text, index) => (
         <Parallax
           ref={(el) => (textRefs.current[index] = el)}
