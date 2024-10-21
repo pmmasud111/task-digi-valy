@@ -1,89 +1,93 @@
 import { useState, useEffect, useRef } from "react";
-import { Parallax } from "react-scroll-parallax";
 import { MdPlayArrow } from "react-icons/md";
+import { Parallax } from "react-scroll-parallax";
+import gsap from "gsap";
 
 const textList = [
-  "Peso Pluma y Pluma",
-  "Kendrick Lamar ands ",
-  "Everything is always fine ",
-  "Rauw Alejandro bmas",
-  "Rashedul Islm ansu",
-  "Linkin Park is",
+  "LINKIN PARK",
+  "PESO PLUMA",
+  "KENDRICK LAMAR",
+  "EVERYTHING ALWAYS",
+  "RAUW ALEJANDRO",
+  "TRAVIS SCOTT",
+  "BABY KEEM",
 ];
 
 const ParallaxText = () => {
-  const [currentIndex, setCurrentIndex] = useState(2); // Start with the first text
-  const [rotation, setRotation] = useState(0); // State to track rotation
+  const [currentIndex, setCurrentIndex] = useState(2);
   const textRefs = useRef([]);
 
   const handleScroll = () => {
-    const scrollPosition = window.scrollY + window.innerHeight / 6;
+    const scrollPosition = window.scrollY;
+    const screenHeight = window.innerHeight;
 
-    textRefs.current.forEach((ref, index) => {
-      if (ref) {
-        const { top, bottom } = ref.getBoundingClientRect();
-        if (top <= scrollPosition && bottom >= scrollPosition) {
-          setCurrentIndex(index);
-        }
-      }
-    });
-
-    // Calculate rotation based on scroll position
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const scrollPercentage = window.scrollY / maxScroll;
-    const newRotation = scrollPercentage * 90; // Max rotation of 90 degrees
-    setRotation(newRotation);
+    const index = Math.min(
+      Math.floor(scrollPosition / (screenHeight / 4)),
+      textList.length - 1
+    );
+    setCurrentIndex(index);
   };
 
   useEffect(() => {
-    const throttle = (callback, delay) => {
-      let lastCall = 0;
-      return (...args) => {
-        const now = new Date().getTime();
-        if (now - lastCall >= delay) {
-          lastCall = now;
-          callback(...args);
-        }
-      };
-    };
-
-    const throttledScroll = throttle(handleScroll, 10);
-    window.addEventListener("scroll", throttledScroll);
-    return () => window.removeEventListener("scroll", throttledScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    textRefs.current.forEach((ref, index) => {
+      if (ref) {
+        if (index === currentIndex) {
+          gsap.to(ref, {
+            duration: 1,
+            skewY: 360,
+            opacity: 1,
+            X: 360,
+            ease: "sine.inOut",
+          });
+        } else {
+          gsap.to(ref, {
+            duration: 1,
+            skewY: -360,
+            opacity: 0.5,
+            X: -360,
+            ease: "sine.inOut",
+          });
+        }
+      }
+    });
+  }, [currentIndex]);
+
   return (
-    <div className="flex flex-col items-center justify-center h-[200vh] bg-gray-100 overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-[300vh] bg-gray-200 overflow-hidden">
       {textList.map((text, index) => (
         <Parallax
+          ref={(el) => (textRefs.current[index] = el)}
           key={text}
-          setCurrentIndex={setCurrentIndex}
-          speed={index === currentIndex ? 0 : (index - currentIndex) * 4}
-          className="transition-all duration-200 ease-in-out space-y-0 flex items-center justify-center whitespace-normal"
+          speed={(index - currentIndex) * 5}
+          className="transition-transform duration-300 ease-in-out"
+          style={{
+            transform: `translateY(${(index - currentIndex) * -50}px)`,
+          }}
         >
           <h2
-            ref={(el) => (textRefs.current[index] = el)}
-            className={`text-[7rem] font-semibold transition-all duration-200 ease-in-out py-0 my-0 ${
+            // Correctly assign refs
+            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl ${
               index === currentIndex
-                ? "text-black opacity-100 "
-                : "text-gray-500 opacity-50"
-            }`}
+                ? "font-semibold text-black opacity-100"
+                : "font-semibold text-gray-500 opacity-50"
+            } p-4`}
           >
             {text}
           </h2>
         </Parallax>
       ))}
-      <div className="fixed top-1/2 -translate-y-1/2 left-0 right-0">
-        <div className="flex items-center justify-between">
-          <MdPlayArrow
-            className="text-4xl"
-            style={{ transform: `rotate(${rotation}deg)` }} // Dynamic rotation
-          />
-          <MdPlayArrow
-            className="rotate-180 text-4xl"
-            style={{ transform: `rotate(-${rotation}deg)` }} // Dynamic opposite rotation
-          />
-        </div>
+
+      <div
+        className="fixed top-1/2 left-0 right-0 transform -translate-y-1/2 flex items-center justify-between"
+        style={{ zIndex: 10 }}
+      >
+        <MdPlayArrow className="text-4xl" />
+        <MdPlayArrow className="rotate-180 text-4xl" />
       </div>
     </div>
   );

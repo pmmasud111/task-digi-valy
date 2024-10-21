@@ -1,10 +1,11 @@
 "use client";
-import ParallaxText from "./components/parallax";
+
+import ParallaxTexts from "./components/parallax";
 
 export default function Home() {
   return (
     <div>
-      <ParallaxText />
+      <ParallaxTexts />
     </div>
   );
 }

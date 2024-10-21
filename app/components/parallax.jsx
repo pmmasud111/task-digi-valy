@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { MdPlayArrow } from "react-icons/md";
 import { Parallax } from "react-scroll-parallax";
+import gsap from "gsap";
 
 const textList = [
   "LINKIN PARK",
@@ -13,17 +14,16 @@ const textList = [
 ];
 
 const ParallaxText = () => {
-  const [currentIndex, setCurrentIndex] = useState(3); // Start with 'EVERYTHING ALWAYS'
-  const ref = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(2);
+  const textRefs = useRef([]);
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     const screenHeight = window.innerHeight;
 
-    // Calculate which text should be highlighted based on scroll position
     const index = Math.min(
-      Math.floor(scrollPosition / (screenHeight / 6)), // Adjust for better spacing
-      textList.length - 1 // Ensure index does not exceed textList length
+      Math.floor(scrollPosition / (screenHeight / 4)),
+      textList.length - 1
     );
     setCurrentIndex(index);
   };
@@ -33,33 +33,58 @@ const ParallaxText = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    textRefs.current.forEach((ref, index) => {
+      if (ref) {
+        if (index === currentIndex) {
+          gsap.to(ref, {
+            duration: 1,
+            skewY: 360,
+            opacity: 1,
+            X: 360,
+            ease: "sine.inOut",
+          });
+        } else {
+          gsap.to(ref, {
+            duration: 1,
+            skewY: -360,
+            opacity: 0.5,
+            X: -360,
+            ease: "sine.inOut",
+          });
+        }
+      }
+    });
+  }, [currentIndex]);
+
   return (
-    <div className="flex flex-col items-center justify-center h-[200vh] bg-gray-200 overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-[300vh] bg-gray-200 overflow-hidden">
       {textList.map((text, index) => (
         <Parallax
+          ref={(el) => (textRefs.current[index] = el)}
           key={text}
-          speed={(index - currentIndex) * 5} // Reduce speed for smoother effect
+          speed={(index - currentIndex) * 5}
           className="transition-transform duration-300 ease-in-out"
           style={{
-            transform: `translateY(${(index - currentIndex) * 100}px)`, // Rolling effect based on index
+            transform: `translateY(${(index - currentIndex) * -50}px)`,
           }}
         >
           <h2
-            className={`text-8xl transition-opacity duration-500 ease-in-out ${
+            // Correctly assign refs
+            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl ${
               index === currentIndex
-                ? "font-semibold text-black opacity-100 transform scale-125" // highlightedText with rounded and shadow
-                : "font-semibold text-gray-500 opacity-30 rounded-full" // smallText with rounded
-            } p-4`} // Added padding for better appearance
+                ? "font-semibold text-black opacity-100"
+                : "font-semibold text-gray-500 opacity-50"
+            } p-4`}
           >
             {text}
           </h2>
         </Parallax>
       ))}
-      {/* Fixed play button section */}
+
       <div
-        ref={ref}
-        className="fixed top-1/2 left-0 right-0 transform -translate-y-1/2 flex items-center justify-between p-4"
-        style={{ zIndex: 10 }} // Ensures the play buttons are above other elements
+        className="fixed top-1/2 left-0 right-0 transform -translate-y-1/2 flex items-center justify-between"
+        style={{ zIndex: 10 }}
       >
         <MdPlayArrow className="text-4xl" />
         <MdPlayArrow className="rotate-180 text-4xl" />
