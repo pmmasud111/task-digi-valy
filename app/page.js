@@ -1,11 +1,11 @@
 "use client";
 
-import ParallaxTexts from "./components/parallax";
+import TaskDigiValley from "./components/TaskDigiValley";
 
 export default function Home() {
   return (
     <div>
-      <ParallaxTexts />
+      <TaskDigiValley />
     </div>
   );
 }

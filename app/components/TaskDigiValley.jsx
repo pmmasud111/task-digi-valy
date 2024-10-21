@@ -13,7 +13,7 @@ const textList = [
   "BABY KEEM",
 ];
 
-const ParallaxText = () => {
+const TaskDigiValley = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
   const textRefs = useRef([]);
 
@@ -39,17 +39,15 @@ const ParallaxText = () => {
         if (index === currentIndex) {
           gsap.to(ref, {
             duration: 1,
-            skewY: 360,
+            rotation: 180,
             opacity: 1,
-            X: 360,
             ease: "sine.inOut",
           });
         } else {
           gsap.to(ref, {
             duration: 1,
-            skewY: -360,
+            rotation: 0,
             opacity: 0.5,
-            X: -360,
             ease: "sine.inOut",
           });
         }
@@ -70,7 +68,6 @@ const ParallaxText = () => {
           }}
         >
           <h2
-            // Correctly assign refs
             className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl ${
               index === currentIndex
                 ? "font-semibold text-black opacity-100"
@@ -93,4 +90,4 @@ const ParallaxText = () => {
   );
 };
 
-export default ParallaxText;
+export default TaskDigiValley;
