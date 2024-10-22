@@ -70,7 +70,7 @@ const TaskDigiValley = () => {
           }}
         >
           <h2
-            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl transition-all duration-500 ease-out font-bold ${
+            className={`text-3xl sm:text-5xl md:text-6xl xl:text-8xl 2xl:text-9xl transition-all duration-500 ease-out font-extrabold md:font-bold lg:font-semibold font-geist-sans  ${
               index === currentIndex
                 ? " text-black opacity-100"
                 : "text-gray-500 opacity-30"
