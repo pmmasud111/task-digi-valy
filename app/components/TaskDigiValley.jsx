@@ -4,17 +4,17 @@ import { Parallax } from "react-scroll-parallax";
 import gsap from "gsap";
 
 const textList = [
-  "LINKIN PARK",
-  "PESO PLUMA",
+  "PESO PLUMA AS",
   "KENDRICK LAMAR",
-  "EVERYTHING ALWAYS",
+  "KENDRICK LAMAR FUN",
+  "EVERYTHING ALWAYS TO",
+  "RAUW ALEJANDRO AS",
   "RAUW ALEJANDRO",
   "TRAVIS SCOTT",
-  "BABY KEEM",
 ];
 
 const TaskDigiValley = () => {
-  const [currentIndex, setCurrentIndex] = useState(2);
+  const [currentIndex, setCurrentIndex] = useState(1);
   const textRefs = useRef([]);
 
   const handleScroll = () => {
@@ -70,14 +70,14 @@ const TaskDigiValley = () => {
           }}
         >
           <h2
-            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl transition-all duration-500 ease-out ${
+            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl transition-transform duration-500 ease-out ${
               index === currentIndex
                 ? "font-semibold text-black opacity-100"
                 : "font-semibold text-gray-500 opacity-50"
             } p-4`}
             style={{
               transform: `rotateX(${
-                index === currentIndex ? 0 : index < currentIndex ? -90 : 90
+                index === currentIndex ? 0 : index < currentIndex ? -60 : 60
               }deg)`,
             }}
           >
