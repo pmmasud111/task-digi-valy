@@ -78,7 +78,23 @@ const TaskDigiValley = () => {
             style={{
               transformStyle: "preserve-3d",
               transform: `rotateX(${
-                index === currentIndex ? 0 : index < currentIndex ? -70 : 70
+                index === currentIndex
+                  ? 0
+                  : index === 0
+                  ? -70
+                  : index === 1
+                  ? -65
+                  : index === 2
+                  ? -60
+                  : index === 3
+                  ? -50
+                  : index === 4
+                  ? 50
+                  : index === 5
+                  ? 60
+                  : index === 6
+                  ? 70
+                  : 80
               }deg)`,
               margin: 0,
             }}
