@@ -21,7 +21,6 @@ const TaskDigiValley = () => {
     const scrollPosition = window.scrollY;
     const screenHeight = window.innerHeight;
 
-    // Calculate the current index based on scroll position and screen height
     const index = Math.min(
       Math.floor(scrollPosition / (screenHeight / 4)),
       textList.length - 1
@@ -42,16 +41,16 @@ const TaskDigiValley = () => {
             duration: 1,
             rotationX: 0,
             opacity: 1,
-            scale: 1.3, // Slightly larger scale for the active item
-            ease: "power3.out", // Smoother easing
+            scale: 1.3,
+            ease: "power3.out",
           });
         } else {
           gsap.to(ref, {
             duration: 0.8,
-            rotationX: index < currentIndex ? -70 : 70, // More consistent 3D rotation
-            opacity: 0.3, // Lower opacity for inactive items
+            rotationX: index < currentIndex ? -70 : 70,
+            opacity: 0.3,
             scale: 0.9,
-            ease: "power3.inOut", // Smoother transition for non-active items
+            ease: "power3.inOut",
           });
         }
       }
@@ -80,9 +79,8 @@ const TaskDigiValley = () => {
               transformStyle: "preserve-3d",
               transform: `rotateX(${
                 index === currentIndex ? 0 : index < currentIndex ? -70 : 70
-              }deg)`, // More logical and smoother 3D rotation
-              margin: 0, // Ensure no extra margin
-              padding: 0, // Ensure no extra padding
+              }deg)`,
+              margin: 0,
             }}
           >
             {text}
