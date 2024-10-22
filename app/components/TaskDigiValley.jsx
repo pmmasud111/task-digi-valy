@@ -70,10 +70,10 @@ const TaskDigiValley = () => {
           }}
         >
           <h2
-            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl transition-transform duration-500 ease-out ${
+            className={`text-2xl sm:text-3xl md:text-4xl xl:text-6xl 2xl:text-8xl transition-transform duration-500 ease-out font-bold lg:font-semibold ${
               index === currentIndex
-                ? "font-semibold text-black opacity-100"
-                : "font-semibold text-gray-500 opacity-50"
+                ? " text-black opacity-100"
+                : "text-gray-500 opacity-50"
             } p-4`}
             style={{
               transform: `rotateX(${
