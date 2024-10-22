@@ -39,17 +39,17 @@ const TaskDigiValley = () => {
         if (index === currentIndex) {
           gsap.to(ref, {
             duration: 1,
-            rotationX: 0, // Front-facing text
+            rotationX: 0,
             opacity: 1,
-            scale: 1.2, // Slightly enlarge active text
+            scale: 1.2,
             ease: "power2.out",
           });
         } else {
           gsap.to(ref, {
             duration: 1,
-            rotationX: index < currentIndex ? -90 : 90, // Roll effect for non-active text
+            rotationX: index < currentIndex ? -90 : 90,
             opacity: 0.5,
-            scale: 0.8, // Shrink non-active text
+            scale: 0.8,
             ease: "power2.in",
           });
         }
@@ -79,7 +79,7 @@ const TaskDigiValley = () => {
               transform: `rotateX(${
                 index === currentIndex ? 0 : index < currentIndex ? -90 : 90
               }deg)`,
-            }} // Adjust rotation based on index
+            }}
           >
             {text}
           </h2>
