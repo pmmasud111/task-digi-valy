@@ -56,13 +56,13 @@ const TaskDigiValley = () => {
   }, [currentIndex]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-[200vh] bg-gray-200 overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-[300vh] bg-gray-200 overflow-hidden">
       {textList.map((text, index) => (
         <Parallax
           ref={(el) => (textRefs.current[index] = el)}
           key={text}
           speed={(index - currentIndex) * 5}
-          className="transition-transform duration-300 ease-in-out"
+          className="transition-transform duration-300 ease-in-out "
           style={{
             transform: `translateY(${(index - currentIndex) * -50}px)`,
           }}
@@ -80,7 +80,11 @@ const TaskDigiValley = () => {
       ))}
 
       <div
-        className="fixed top-1/2 left-0 right-0 transform -translate-y-1/2 flex items-center justify-between"
+        className={`fixed top-1/2 left-0 right-0 transform -translate-y-1/2 flex items-center justify-between ${
+          currentIndex > 3
+            ? "skew-x-12 rotate-[90deg]"
+            : "skew-x-0 translate-x-5"
+        }`}
         style={{ zIndex: 10 }}
       >
         <MdPlayArrow className="text-4xl" />
